@@ -5,9 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const guessesDiv = document.getElementById('guesses');
     let targetPlayer;
     const difficultySelect = document.getElementById('difficultySelect');
-    const popUpHint=document.getElementById('hintPopUp');
-    const hintButton=document.getElementById("hintButton");
-    
+    const popUpHint = document.getElementById('hintPopUp');
+    const hintButton = document.getElementById("hintButton");
+
+
     function askDifficulty() {
         const difficulty = difficultySelect.value;
         switch (difficulty) {
@@ -27,24 +28,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         guessesDiv.innerHTML = '';
         resultDiv.innerHTML = '';
+        popUpHint.style.display='none';
+        resetAttributesDic();
         console.log(`Target player: ${targetPlayer.name}`); // For debugging purposes
     }
 
-    difficultySelect.addEventListener("change",()=>{
-        askDifficulty();
-    })
-
-    // Ask user for difficulty level when the page loads
     askDifficulty();
+    difficultySelect.addEventListener("change",askDifficulty);
 
+   
     function autocomplete(inp, arr) {
         let currentFocus;
 
-        inp.addEventListener("input", function(e) {
+        inp.addEventListener("input", function (e) {
             let a, b, i, val = this.value;
 
             closeAllLists();
-            if (!val) { return false;}
+            if (!val) { return false; }
             currentFocus = -1;
 
             a = document.createElement("DIV");
@@ -56,14 +56,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 const fullName = arr[i].name;
                 const firstName = fullName.split(' ')[0];
                 const lastName = fullName.split(' ').slice(1).join(' ');
-                
-                if (firstName.substr(0, val.length).toUpperCase() === val.toUpperCase() || 
+
+                if (firstName.substr(0, val.length).toUpperCase() === val.toUpperCase() ||
                     lastName.substr(0, val.length).toUpperCase() === val.toUpperCase()) {
                     b = document.createElement("DIV");
                     b.innerHTML = "<strong>" + fullName.substr(0, val.length) + "</strong>";
                     b.innerHTML += fullName.substr(val.length);
                     b.innerHTML += "<input type='hidden' value='" + fullName + "'>";
-                    b.addEventListener("click", function(e) {
+                    b.addEventListener("click", function (e) {
                         inp.value = this.getElementsByTagName("input")[0].value;
                         closeAllLists();
                     });
@@ -72,9 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-   
-
-        inp.addEventListener("keydown", function(e) {
+        inp.addEventListener("keydown", function (e) {
             let x = document.getElementById(this.id + "autocomplete-list");
             if (x) x = x.getElementsByTagName("div");
             if (e.keyCode == 40) {
@@ -128,41 +126,52 @@ document.addEventListener("DOMContentLoaded", () => {
         if (guessedPlayer) {
             const playerDiv = document.createElement('div');
             playerDiv.classList.add('guess-item');
-            guessedPlayerAge=calculateAge(guessedPlayer.birthdate);
-            targetPlayerAge=calculateAge(targetPlayer.birthdate);
+            const guessedPlayerAge = calculateAge(guessedPlayer.birthdate);
+            const targetPlayerAge = calculateAge(targetPlayer.birthdate);
 
             playerDiv.innerHTML = `
                 <p>${guessedPlayer.name}</p>
-                <p style="color:${compareAttributesColor(targetPlayer.team,guessedPlayer.team)}">${guessedPlayer.team}</p>
-                <p style="color:${comparePositionColor(targetPlayer.position,guessedPlayer.position)}">${guessedPlayer.position} </p>
-                <p  style="color:${compareNumAttributeColor(targetPlayerAge,guessedPlayerAge)}">${guessedPlayerAge} ${compareAttributes(targetPlayerAge,guessedPlayerAge)}</p>
-                <p  style="color:${compareNumAttributeColor(targetPlayer.height,guessedPlayer.height)}">${guessedPlayer.height} ${compareAttributes(targetPlayer.height, guessedPlayer.height)}</p>
-                <p style="color:${compareAttributesColor(targetPlayer.currentClub,guessedPlayer.currentClub)}">${guessedPlayer.currentClub} </p>
-                <p style="color:${compareAttributesColor(targetPlayer.group,guessedPlayer.group)}">${guessedPlayer.group} </p>
-
-                `;
+                <img class="${compareNations(targetPlayer.team,guessedPlayer.team)}" src="${getCountryCode(guessedPlayer.team)}" alt="${guessedPlayer.team}">
+                <p style="color:${comparePositionColor(targetPlayer.position, guessedPlayer.position)}">${guessedPlayer.position} </p>
+                <p style="color:${compareNumAttributeColor(targetPlayerAge, guessedPlayerAge)}">${guessedPlayerAge} ${compareAttributes(targetPlayerAge, guessedPlayerAge)}</p>
+                <p style="color:${compareNumAttributeColor(targetPlayer.height, guessedPlayer.height)}">${guessedPlayer.height} ${compareAttributes(targetPlayer.height, guessedPlayer.height)}</p>
+                <p style="color:${compareAttributesColor(targetPlayer.currentClub, guessedPlayer.currentClub)}">${guessedPlayer.currentClub}</p>
+                <p style="color:${compareAttributesColor(targetPlayer.group, guessedPlayer.group)}">${guessedPlayer.group}</p>
+            `;
             guessesDiv.appendChild(playerDiv);
             resultDiv.innerHTML = '';
-            if(guessedPlayer.name==targetPlayer.name){
-                resultDiv.innerHTML="Well Done!";
+            if (guessedPlayer.name == targetPlayer.name) {
+                resultDiv.innerHTML = "Well Done!";
             }
-        } else {
+        } 
+        else {
             resultDiv.innerHTML = 'Player not found';
         }
     });
 
-    
-
-    function hintPopUp(){
-        popUpHint.style.display="block";
-        popUpHint.innerHTML=targetPlayer.name;
+  
+    function hintPopUp() {
+        if(popUpHint.style.display=== "none") {
+            const availableAttributes = Object.keys(playersAttributes).filter(attr => !playersAttributes[attr]);
+            if (availableAttributes.length > 0) {
+                const randomAttribute = availableAttributes[Math.floor(Math.random() * availableAttributes.length)];
+                popUpHint.innerHTML = playersAttributesToText[randomAttribute] + ": " + targetPlayer[randomAttribute];
+                playersAttributes[randomAttribute] = true;
+            } 
+            else {
+                popUpHint.innerHTML = "No more hints available.";
+            }
+            popUpHint.style.display="block";
+        }
+        else{
+            popUpHint.style.display="none";
+        }       
     }
 
-    hintButton.addEventListener("click",hintPopUp);
-    
 
 
 
+    hintButton.addEventListener("click", hintPopUp);
 });
 
 function compareAttributes(targetValue, guessedValue) {
@@ -175,34 +184,63 @@ function compareAttributes(targetValue, guessedValue) {
     }
 }
 
-function compareAttributesColor(random,guess){
-    if(random==guess)return "green";
-    else return "red";
+function compareAttributesColor(random, guess) {
+    return random == guess ? 'green' : 'red';
 }
 
-const footballPositions={
-    "Defenders":['CB','RB','LB'],
-    "Midfielders":['CM','CDM','CAM'],
-    "Attackers":['CF','ST','RW','LW']
+function compareNations(random,guess){
+    return random==guess? 'flag-green' : 'flag-red';
+}
+
+
+
+const footballPositions = {
+    "Defenders": ['CB', 'RB', 'LB'],
+    "Midfielders": ['CM', 'CDM', 'CAM'],
+    "Attackers": ['CF', 'ST', 'RW', 'LW']
 };
 
-function posToArea(pos){
-    if(footballPositions["Defenders"].includes(pos))return "Def";
-    if(footballPositions["Midfielders"].includes(pos))return "Mid";
-    if(footballPositions["Attackers"].includes(pos))return "Att";
+const playersAttributes = {
+    "team": false,
+    "position": false,
+    "height": false,
+    "currentClub": false,
+    "group": false
+};
+
+const playersAttributesToText={
+    "team":"National Team",
+    "position":"Position",
+    "height":"Height(cm)",
+    "currentClub":"Current Club",
+    "group":"Group Stage"
+}
+
+function resetAttributesDic() {
+    for (let key in playersAttributes) {
+            playersAttributes[key] = false;
+        }
+}
+
+
+function posToArea(pos) {
+    if (footballPositions["Defenders"].includes(pos)) return "Def";
+    if (footballPositions["Midfielders"].includes(pos)) return "Mid";
+    if (footballPositions["Attackers"].includes(pos)) return "Att";
     else return "GK";
 }
-function comparePositionColor(randomPos,guessPos){
-    if(randomPos==guessPos)return "green";
-    else if(posToArea(randomPos)==posToArea(guessPos))return "orange";
+
+function comparePositionColor(randomPos, guessPos) {
+    if (randomPos == guessPos) return "green";
+    else if (posToArea(randomPos) == posToArea(guessPos)) return "orange";
     else return "red";
 }
 
-function compareNumAttributeColor(targetNum,guessNum){
+function compareNumAttributeColor(targetNum, guessNum) {
     const difference = Math.abs(targetNum - guessNum);
-    if(targetNum==guessNum)return "green";
-    else if(difference<=2)return "orange";
-    else return "red";    
+    if (targetNum == guessNum) return "green";
+    else if (difference <= 2) return "orange";
+    else return "red";
 }
 
 function calculateAge(birthDateString) {

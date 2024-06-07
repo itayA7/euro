@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "country-flag-icons": "^1.5.12",
     "express": "^4.19.2"
   }
 }
