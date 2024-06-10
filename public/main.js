@@ -270,7 +270,7 @@ function calculateAge(birthDateString) {
 }
 
 
-function openPopup(){
+function openPopup(isUserRight=true){
   const phrases=["Great!","Well Done!","Nice!"];
   var randomPhrase;
   var image;
@@ -291,6 +291,7 @@ function openPopup(){
         image=getCountryCode(targetPlayer.team);
         randomPhrase =phrases[Math.floor(Math.random() * phrases.length)];
   }
+  randomPhrase=isUserRight?randomPhrase:"Try Again!"
   document.getElementById("resultFlag").src=image;
   document.getElementById("popUpResult").innerHTML="The Player was: "+targetPlayer.name;
   document.getElementById("popUpHeader").innerHTML=randomPhrase;
