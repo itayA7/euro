@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EURO 2024 Guessing Game</title>
+    <title>Who is this? EURO 2024 Edition</title>
     <link rel="stylesheet" href="styles.css">
+    <meta name="google-site-verification" content="IYJa8Gy3CjEld7aBC8anw0XG66C6-L0vmEx0nO9J43Q" />
 </head>
 
 <body>
@@ -16,17 +17,24 @@
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
         </select>
-        <input type="text" id="playerName" placeholder="Enter player name">
-        <div id="autocomplete-list" class="autocomplete-items"></div>
+        <div>
+            <input type="text" id="playerName" placeholder="Enter player name">
+            <div id="autocomplete-list" class="autocomplete-items"></div>
+        </div>
         <button id="guessButton">Guess</button>
         <button id="hintButton">Hint</button>
-        <div class="pop" id="hintPopUp" style="display: none;"></div>
+        <div id="hintPopUp" style="display: none;"></div>
         <div id="result"></div>
         <div id="guesses"></div>
     </div>
-    <footer>
-        <p>&copy; 2024 EURO 2024 Guessing Game. All Rights Reserved.</p>
-    </footer>
+    <div class="popup" id="popup">
+        <img id="resultFlag">
+        <h2 id="popUpHeader">Great! </h2>
+        <p id="popUpResult"></p>
+        <button type="button" onclick="closePopup()">Close</button>
+        <button type="button" onclick="restart()">New Game</button>
+    </div>
+
     <script src="./ps/players.js"></script>
     <script src="./ps/flags.js"></script>
     <script src="main.js"></script>

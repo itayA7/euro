@@ -1,7 +1,6 @@
-/* General styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #6f6e6ee3;
+    background-color: #282c34;
     color: #ffffff;
     text-align: center;
     margin: 0;
@@ -12,7 +11,7 @@ body {
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
-    background: #1f1f1f;
+    background: #3b3e45;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
@@ -20,7 +19,7 @@ body {
 h1 {
     font-size: 2.5em;
     margin-bottom: 20px;
-    color: #ffcc00;
+    color: #ff6f61;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
@@ -31,8 +30,8 @@ select {
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 8px;
-    border: 1px solid #333;
-    background-color: #2a2a2a;
+    border: 1px solid #555;
+    background-color: #50555c;
     color: #ffffff;
     font-size: 1em;
     transition: border-color 0.3s, background-color 0.3s;
@@ -40,8 +39,8 @@ select {
 
 input[type="text"]:focus,
 select:focus {
-    border-color: #ffcc00;
-    background-color: #333;
+    border-color: #ff6f61;
+    background-color: #555b62;
 }
 
 button {
@@ -50,15 +49,15 @@ button {
     margin-top: 10px;
     border: none;
     border-radius: 8px;
-    background-color: #ffcc00;
-    color: #121212;
+    background-color: #ff6f61;
+    color: #ffffff;
     font-size: 1.2em;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
 }
 
 button:hover {
-    background-color: #ffaa00;
+    background-color: #ff8563;
     transform: translateY(-2px);
 }
 
@@ -70,7 +69,7 @@ button:hover {
 }
 
 .guess-item {
-    background-color: #2a2a2a;
+    background-color: #3b3e45;
     padding: 15px;
     margin: 15px 0;
     border-radius: 8px;
@@ -90,11 +89,11 @@ button:hover {
 /* Autocomplete styles */
 .autocomplete-items {
     position: absolute;
-    border: 1px solid #333;
+    border: 1px solid #555;
     border-bottom: none;
     border-top: none;
     z-index: 99;
-    background-color: #2a2a2a;
+    background-color: #50555c;
     left: 50%;
     transform: translateX(-50%);
     width: calc(100% - 22px);
@@ -105,42 +104,17 @@ button:hover {
 .autocomplete-items div {
     padding: 15px;
     cursor: pointer;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #555;
     transition: background-color 0.3s;
 }
 
 .autocomplete-items div:hover {
-    background-color: #333;
+    background-color: #555b62;
 }
 
 .autocomplete-active {
-    background-color: #ffaa00 !important;
-    color: #121212;
-}
-
-/* Footer */
-footer {
-    margin-top: 20px;
-    font-size: 0.8em;
+    background-color: #ff8563 !important;
     color: #ffffff;
-}
-
-/* Popup */
-.popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #2a2a2a;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 400px;
-    animation: fadeIn 0.3s;
 }
 
 @keyframes fadeIn {
@@ -156,6 +130,8 @@ footer {
 }
 
 .flag-green {
+    height: 40px;
+    width: 60px;
     border: 3px solid green;
     border-radius: 5px;
     padding: 2px;
@@ -165,4 +141,59 @@ footer {
     border: 3px solid red;
     border-radius: 5px;
     padding: 2px;
+    height: 40px;
+    width: 60px;
+}
+
+.popup {
+    width: 400px;
+    background: #ffffff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 60px;
+    color: #333;
+    visibility: hidden;
+    transition: all 0.4s ease-in-out;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.popup img {
+    width: 250px;
+    margin-top: -80px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.open-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup h2 {
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+    font-family: Impact, Haettenschweiler;
+}
+
+.popup button {
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px 0;
+    background-color: #ff6f61;
+    color: #ffffff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }
