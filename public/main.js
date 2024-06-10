@@ -222,7 +222,7 @@ const playersAttributes = {
 
 const playersAttributesToText={
     "team":"National Team",
-    "position":"The Player's osition",
+    "position":"Position",
     "height":"Height(cm)",
     "currentClub":"Current Club",
     "group":"Group Stage"
