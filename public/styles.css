@@ -8,7 +8,7 @@ body {
 }
 
 #app {
-    max-width: 600px;
+    max-width: 675px;
     margin: 50px auto;
     padding: 20px;
     background: #3b3e45;
@@ -68,7 +68,6 @@ button:hover {
     color: #ffcc00;
 }
 
-
 .guess-item {
     background-color: #3b3e45;
     padding: 15px;
@@ -76,7 +75,8 @@ button:hover {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: minmax(105px, 1fr) repeat(6, 1fr);
+    /* Adjusted columns */
     gap: 10px;
     align-items: center;
     text-align: center;
@@ -85,6 +85,8 @@ button:hover {
 .guess-item p {
     margin: 0;
     color: #ffffff;
+    word-break: break-word;
+    /* Allows long names to break to the next line */
 }
 
 /* Autocomplete styles */
