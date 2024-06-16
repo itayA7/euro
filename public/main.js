@@ -144,11 +144,11 @@ document.addEventListener("DOMContentLoaded", () => {
             playerDiv.innerHTML = `
                 <p>${guessedPlayer.name}</p>
                 <img class="${compareNations(targetPlayer.team,guessedPlayer.team)}" src="${getCountryCode(guessedPlayer.team)}" alt="${guessedPlayer.team}">
-                <p style="color:${comparePositionColor(targetPlayer.position, guessedPlayer.position)}">${guessedPlayer.position} </p>
-                <p style="color:${compareNumAttributeColor(targetPlayerAge, guessedPlayerAge)}">${guessedPlayerAge} ${compareAttributes(targetPlayerAge, guessedPlayerAge)}</p>
-                <p style="color:${compareNumAttributeColor(targetPlayer.height, guessedPlayer.height)}">${guessedPlayer.height} ${compareAttributes(targetPlayer.height, guessedPlayer.height)}</p>
-                <p style="color:${compareAttributesColor(targetPlayer.currentClub, guessedPlayer.currentClub)}">${guessedPlayer.currentClub}</p>
-                <p style="color:${compareAttributesColor(targetPlayer.group, guessedPlayer.group)}">${guessedPlayer.group}</p>
+                <p style="background-color:${comparePositionColor(targetPlayer.position, guessedPlayer.position)}">${guessedPlayer.position} </p>
+                <p style="background-color:${compareNumAttributeColor(targetPlayerAge, guessedPlayerAge)}">${guessedPlayerAge} ${compareAttributes(targetPlayerAge, guessedPlayerAge)}</p>
+                <p style="background-color:${compareNumAttributeColor(targetPlayer.height, guessedPlayer.height)}">${guessedPlayer.height} ${compareAttributes(targetPlayer.height, guessedPlayer.height)}</p>
+                <p style="background-color:${compareAttributesColor(targetPlayer.currentClub, guessedPlayer.currentClub)}">${guessedPlayer.currentClub}</p>
+                <p style="background-color:${compareAttributesColor(targetPlayer.group, guessedPlayer.group)}">${guessedPlayer.group}</p>
             `;
             guessesDiv.appendChild(playerDiv);
             resultDiv.innerHTML = '';
@@ -197,7 +197,7 @@ function compareAttributes(targetValue, guessedValue) {
 }
 
 function compareAttributesColor(random, guess) {
-    return random == guess ? 'green' : 'red';
+    return random == guess ? 'green' : '';
 }
 
 function compareNations(random,guess){
@@ -245,14 +245,14 @@ function posToArea(pos) {
 function comparePositionColor(randomPos, guessPos) {
     if (randomPos == guessPos) return "green";
     else if (posToArea(randomPos) == posToArea(guessPos)) return "orange";
-    else return "red";
+    else return "";
 }
 
 function compareNumAttributeColor(targetNum, guessNum) {
     const difference = Math.abs(targetNum - guessNum);
     if (targetNum == guessNum) return "green";
     else if (difference <= 2) return "orange";
-    else return "red";
+    else return "";
 }
 
 function calculateAge(birthDateString) {
@@ -274,23 +274,30 @@ function openPopup(isUserRight=true){
   const phrases=["Great!","Well Done!","Nice!"];
   var randomPhrase;
   var image;
-  switch (targetPlayer.team||targetPlayer.name) {
+  switch (targetPlayer.team) {
     case "Italy":
-        image="../flags/rome.gif";
         randomPhrase="It's Coming to ROME";
-        break;
-    case "Cristiano Ronaldo":
-        randomPhrase="Siuuuuuuuuuuuu";
-        image=getCountryCode(targetPlayer.team);
         break;
     case "England":
         randomPhrase="It's Coming Home";
-        image=getCountryCode(targetPlayer.team);
+        break;
+    case "Spain":
+        randomPhrase="¡Vamos España!";
+        break;
+    case "France":
+        randomPhrase="Allez les Bleus!";
+        break;
+    case "Portugal":
+        randomPhrase="Força Portugal!";
+        break;
+    case "Germany":
+        randomPhrase="Die Mannschaft";
         break;
     default:
-        image=getCountryCode(targetPlayer.team);
+        console.log(targetPlayer.name)
         randomPhrase =phrases[Math.floor(Math.random() * phrases.length)];
   }
+  image=getCountryCode(targetPlayer.team);
   randomPhrase=isUserRight?randomPhrase:"Try Again!"
   document.getElementById("resultFlag").src=image;
   document.getElementById("popUpResult").innerHTML="The Player was: "+targetPlayer.name;

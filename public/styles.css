@@ -1,4 +1,13 @@
+#frame {
+    margin: 5px 10px;
+    align-items: center;
+    /* display: grid; */
+    gap: 10px;
+    grid-template-areas: "leftside main rightside" "footer footer footer";
+}
+
 body {
+    grid-area: main;
     font-family: 'Arial', sans-serif;
     background-color: #282c34;
     color: #ffffff;
@@ -85,8 +94,6 @@ button:hover {
 .guess-item p {
     margin: 0;
     color: #ffffff;
-    word-break: break-word;
-    /* Allows long names to break to the next line */
 }
 
 /* Autocomplete styles */
@@ -141,8 +148,6 @@ button:hover {
 }
 
 .flag-red {
-    border: 3px solid red;
-    border-radius: 5px;
     padding: 2px;
     height: 40px;
     width: 60px;
@@ -199,4 +204,216 @@ button:hover {
     font-size: 18px;
     border-radius: 4px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.rightside {
+    grid-area: rightside;
+    background-color: gold;
+    display: none;
+    position: fixed;
+    top: 10vh;
+    right: 10px;
+    height: 550px;
+    width: 120px;
+}
+
+.leftside {
+    grid-area: leftside;
+    background-color: white;
+    display: flex;
+    position: fixed;
+    top: 10vh;
+    left: 10px;
+    height: 80vh;
+    width: 20vw;
+    display: none;
+}
+
+
+@media (orientation: portrait) {
+    #rotate-message {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #282c34;
+        color: #ffffff;
+        font-size: 24px;
+        z-index: 9999;
+        text-align: center;
+    }
+
+    #app {
+        display: none;
+    }
+
+    .rotate-gif {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+@media (orientation: landscape) {
+    #rotate-message {
+        display: none;
+    }
+
+    #app {
+        display: block;
+    }
+}
+
+
+@media (max-width: 1200px) {
+    #app {
+        max-width: 50%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2.2em;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 1.1em;
+    }
+
+    .guess-item {
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .guess-item p {
+        font-size: 0.9em;
+    }
+
+    .popup {
+        width: 250px;
+    }
+
+    .popup img {
+        width: 125px;
+        height: 85px;
+        margin-top: 30px;
+    }
+}
+
+
+
+
+
+@media (max-width: 992px) {
+    #app {
+        max-width: 55%;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    .guess-item {
+        padding: 10px;
+        gap: 6px;
+    }
+
+    .guess-item p {
+        font-size: 0.8em;
+    }
+
+    .popup {
+        width: 250px;
+    }
+
+    .popup img {
+        width: 125px;
+        height: 85px;
+        margin-top: 30px;
+    }
+
+
+
+
+
+
+}
+
+@media (max-width: 768px) {
+    #app {
+        max-width: 65%;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    button {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+    .guess-item {
+        padding: 8px;
+        gap: 4px;
+    }
+
+    .guess-item p {
+        font-size: 0.7em;
+    }
+
+    .popup {
+        width: 200px;
+    }
+
+    .popup img {
+        width: 100px;
+        height: 75px;
+        margin-top: 30px;
+    }
+
+    .flag-green {
+        height: 20px;
+        width: 30px;
+    }
+
+    .flag-red {
+        height: 20px;
+        width: 30px;
+    }
+
+}
+
+@media (max-width: 576px) {
+    #app {
+        max-width: 85%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    button {
+        padding: 6px;
+        font-size: 0.8em;
+    }
+
+    .guess-item {
+        padding: 6px;
+        gap: 2px;
+    }
+
+    .guess-item p {
+        font-size: 0.6em;
+    }
 }

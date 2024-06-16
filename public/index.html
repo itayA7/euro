@@ -21,36 +21,47 @@
         content="Test your knowledge of EURO 2024 football players with our exciting guessing game. Can you name all the stars of the tournament?">
 
 
+
 </head>
 
 <body>
-    <div id="app">
-        <h1>EURO 2024 Guessing Game</h1>
-        <select id="difficultySelect">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-        </select>
-        <div>
-            <input type="text" id="playerName" placeholder="Enter player name">
-            <div id="autocomplete-list" class="autocomplete-items"></div>
-        </div>
-        <button id="guessButton">Guess</button>
-        <button id="hintButton">Hint</button>
-        <button onclick="openPopup(false)">I Give Up &#128531; </button>
-        <div id="hintPopUp" style="display: none;"></div>
-        <div id="result"></div>
-        <div class="guess-item ">
-            <p>Player Name</p>
-            <p>Flag</p>
-            <p>Position </p>
-            <p>Age </p>
-            <p>Height(cm) </p>
-            <p>Club </p>
-            <p>Group Stage </p>
-        </div>
-        <div id="guesses"></div>
+    <div id="rotate-message" class="rotate-message">
+        <img src="../flags/rotate.gif" class="rotate-gif" alt="Please rotate your phone">
     </div>
+    <div id="frame">
+        <div class="rightside"></div>
+        <div class="leftside"></div>
+        <div id="app">
+            <h1>EURO 2024 Guessing Game</h1>
+            <select id="difficultySelect">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+            <div>
+                <input type="text" id="playerName" placeholder="Enter player name">
+                <div id="autocomplete-list" class="autocomplete-items"></div>
+            </div>
+            <button id="guessButton">Guess</button>
+            <button id="hintButton">Hint</button>
+            <button onclick="openPopup(false)">I Give Up &#128531; </button>
+            <div id="hintPopUp" style="display: none;"></div>
+            <div id="result"></div>
+            <div class="guess-item ">
+                <p>Player Name</p>
+                <p>Flag</p>
+                <p>Position </p>
+                <p>Age </p>
+                <p>Height(cm) </p>
+                <p>Club </p>
+                <p>Group Stage </p>
+            </div>
+            <div id="guesses"></div>
+        </div>
+
+    </div>
+
+
     <div class="popup" id="popup">
         <img id="resultFlag">
         <h2 id="popUpHeader">Great! </h2>
