@@ -206,28 +206,26 @@ button:hover {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }
 
-.rightside {
-    grid-area: rightside;
-    background-color: gold;
-    display: none;
-    position: fixed;
-    top: 10vh;
-    right: 10px;
-    height: 550px;
-    width: 120px;
+ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    background-color: #3b3e45;
+    padding: 10px;
 }
 
-.leftside {
-    grid-area: leftside;
-    background-color: white;
-    display: flex;
-    position: fixed;
-    top: 10vh;
-    left: 10px;
-    height: 80vh;
-    width: 20vw;
-    display: none;
+ul li {
+    margin: 0 30px;
 }
+
+ul li a img {
+    width: 45px;
+    height: 45px;
+}
+
+
+
+
 
 
 @media (orientation: portrait) {

@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
             case "hard":
                 targetPlayer = players[Math.floor(Math.random() * players.length)];
                 break;
+            case "big6":
+                targetPlayer = big6players[Math.floor(Math.random() * big6players.length)];
+                break;
             default:
                 alert("Invalid selection. Please choose a valid option.");
                 askDifficulty(); // Ask again until valid option is chosen
@@ -143,12 +146,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             playerDiv.innerHTML = `
                 <p>${guessedPlayer.name}</p>
-                <img class="${compareNations(targetPlayer.team,guessedPlayer.team)}" src="${getCountryCode(guessedPlayer.team)}" alt="${guessedPlayer.team}">
+                <p style="background-color:${compareAttributesColor(targetPlayer.currentClub, guessedPlayer.currentClub)}">${guessedPlayer.currentClub}</p>
+                <img class="${compareNations(targetPlayer.nation,guessedPlayer.nation)}" src="${getCountryCode(guessedPlayer.nation)}" alt="${guessedPlayer.nation}">
                 <p style="background-color:${comparePositionColor(targetPlayer.position, guessedPlayer.position)}">${guessedPlayer.position} </p>
                 <p style="background-color:${compareNumAttributeColor(targetPlayerAge, guessedPlayerAge)}">${guessedPlayerAge} ${compareAttributes(targetPlayerAge, guessedPlayerAge)}</p>
                 <p style="background-color:${compareNumAttributeColor(targetPlayer.height, guessedPlayer.height)}">${guessedPlayer.height} ${compareAttributes(targetPlayer.height, guessedPlayer.height)}</p>
-                <p style="background-color:${compareAttributesColor(targetPlayer.currentClub, guessedPlayer.currentClub)}">${guessedPlayer.currentClub}</p>
-                <p style="background-color:${compareAttributesColor(targetPlayer.group, guessedPlayer.group)}">${guessedPlayer.group}</p>
             `;
             guessesDiv.appendChild(playerDiv);
             resultDiv.innerHTML = '';
@@ -213,19 +215,17 @@ const footballPositions = {
 };
 
 const playersAttributes = {
-    "team": false,
+    "nation": false,
     "position": false,
     "height": false,
-    "currentClub": false,
-    "group": false
+    "currentClub": false
 };
 
 const playersAttributesToText={
-    "team":"National Team",
+    "nation":"National nation",
     "position":"Position",
     "height":"Height(cm)",
-    "currentClub":"Current Club",
-    "group":"Group Stage"
+    "currentClub":"Current Club"
 }
 
 function resetAttributesDic() {
@@ -274,30 +274,8 @@ function openPopup(isUserRight=true){
   const phrases=["Great!","Well Done!","Nice!"];
   var randomPhrase;
   var image;
-  switch (targetPlayer.team) {
-    case "Italy":
-        randomPhrase="It's Coming to ROME";
-        break;
-    case "England":
-        randomPhrase="It's Coming Home";
-        break;
-    case "Spain":
-        randomPhrase="¡Vamos España!";
-        break;
-    case "France":
-        randomPhrase="Allez les Bleus!";
-        break;
-    case "Portugal":
-        randomPhrase="Força Portugal!";
-        break;
-    case "Germany":
-        randomPhrase="Die Mannschaft";
-        break;
-    default:
-        console.log(targetPlayer.name)
-        randomPhrase =phrases[Math.floor(Math.random() * phrases.length)];
-  }
-  image=getCountryCode(targetPlayer.team);
+  randomPhrase =phrases[Math.floor(Math.random() * phrases.length)];
+  image=getCountryCode(targetPlayer.nation);
   randomPhrase=isUserRight?randomPhrase:"Try Again!"
   document.getElementById("resultFlag").src=image;
   document.getElementById("popUpResult").innerHTML="The Player was: "+targetPlayer.name;
